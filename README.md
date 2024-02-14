@@ -1,4 +1,4 @@
-# Project README
+# README
 
 This project is a demo quiz project. Given below are the setup instructions for configuring external files, creating JSON data, adding PNG files to the `drawable` directory, and implementing Firebase. It will help to perfectly run the app without any issues.
 
