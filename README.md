@@ -1,6 +1,6 @@
 # Project README
 
-This project is a demo quiz priject. It includes setup instructions for configuring external files, creating JSON data, adding PNG files to the `drawable` directory, and implementing Firebase.
+This project is a demo quiz project. Given below are the setup instructions for configuring external files, creating JSON data, adding PNG files to the `drawable` directory, and implementing Firebase. It will help to perfectly run the app without any issues.
 
 ## Setup Instructions
 
@@ -72,7 +72,7 @@ Follow these steps to set up your project:
     }
     ```
 
-   Replace the placeholders with your actual question data.
+   Replace the placeholders with your actual question data. Be sure to change the 'QuestionType' enum class for matching with type field of the json. 
 
 ### Step 3: Add PNG Files to `drawable` Directory
 
