@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="color_primary">#003049</color>
+    <color name="color_secondary">#D62828</color>
+    <color name="color_tertiary">#F77F00</color>
+    <color name="color_five">#FCBF49</color>
+    <color name="color_six">#EAE2B7</color>
+    <color name="text_color">#EAE2B7</color>
+
+    <!-- Primary -->
+    <color name="primary">#003049</color>
+    <color name="primaryDark">#D62828</color>
+    <color name="primaryLight">#F77F00</color>
+    <color name="secondary">#031629</color>
+
+    <!-- Primary Dark -->
+    <color name="dark_mode_navy_primary">#021424</color>
+    <color name="dark_mode_navy_primary_darker">#021524</color>
+    <color name="dark_mode_navy_secondary">#0B2137</color>
+    <color name="dark_mode_navy_tertiary">#0A2337</color>
+    <color name="dark_mode_header_background">#021524</color>
+    <color name="dark_mode_dark_grey">#112E48</color>
+    <color name="dark_mode_light_blue">#0D283F</color>
+    <color name="dark_mode_light_blue_grey">#6890B9</color>
+    <color name="dark_mode_white_text">#DEFFFFFF</color>
+    <color name="dark_mode_dark_grey_text">#CBCBCB</color>
+    <color name="dark_mode_darker_grey_text">#99FFFFFF</color>
+    <color name="dark_mode_darkest_grey_text">#61FFFFFF</color>
+    <color name="dark_mode_black_light">#99000000</color>
+    <color name="dark_mode_black">#DE000000</color>
+
+    <!-- Text -->
+    <color name="gray_medium_text">#636363</color>
+    <color name="gray_slightly_darker_than_light">#8E8E93</color>
+    <color name="gray_light_text">#878787</color>
+    <color name="gray_lighter_text">#B8B8B8</color>
+    <color name="gray_article_title">#414141</color>
+    <color name="gray_text_box_border">#B8B8B8</color>
+    <color name="gray_rate_text">#B9B9B9</color>
+    <color name="gray_subscription_text">#3E3E3E</color>
+    <color name="gray_slightly_lighter_than_dark">#373737</color>
+    <color name="dark_gray_article_title">#262626</color>
+    <color name="google_logo_gray">#757575</color>
+    <color name="gray_button_text">#646464</color>
+
+    <!-- Borders -->
+    <color name="gray_border">#DFDFE0</color>
+
+    <!-- Icons -->
+    <color name="icon_general">#636363</color>
+    <color name="icon_bottom_navbar">#8E8E93</color>
+    <color name="icon_bottom_navbar_selected">#80FFFFFF</color>
+
+    <!-- ViewTypes -->
+    <color name="bg_general">#EEEEEE</color>
+    <color name="bg_roaming_playbar">#DFDFDF</color>
+    <color name="bg_bottom_navbar">#EEEEEE</color>
+    <color name="bg_top_navbar">#F3F3F3</color>
+
+    <!-- Buttons -->
+    <color name="button_disabled">#444444</color>
+    <color name="button_light">#fefefe</color>
+    <color name="button_light_grey">#E4E4E4</color>
+    <color name="button_red">#FF3267</color>
+    <color name="button_red_delete">#FF3B30</color>
+    <color name="button_blue_delete">#153755</color>
+
+    <!-- Black & White -->
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+
+    <!-- Main BG Color -->
+    <color name="background_color">#FFFFFF</color>
+
+    <!-- Promo Code Box -->
+    <color name="promo_code_green">#03E5BE</color>
+
+    <!-- Transparent -->
+    <color name="TRANSPARENT">#00000000</color>
+
+    <!-- Shapes -->
+    <color name="gray_story_list_line">#DFDFDF</color>
+    <color name="gray_download_option">#989898</color>
+
+    <!-- Rating -->
+    <color name="blue_image_tint">#014C71</color>
+
+    <!-- Premium -->
+    <color name="premium_gold">#B28D15</color>
+    <color name="premium_gold_light">#FFFBF0</color>
+
+    <!-- Badge -->
+    <color name="badge_red">#FF0000</color>
+</resources>

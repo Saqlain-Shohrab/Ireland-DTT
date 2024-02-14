@@ -1,0 +1,48 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    apply from: 'externalConfig.gradle'
+    ext {
+        agp_version = '8.1.4'
+    }
+    ext.kotlin_version = '1.9.0'
+    ext.compose_version = '1.2.1'
+    repositories {
+        jcenter()
+        //mavenCentral()
+        google()
+         maven {
+           url "https://maven.google.com"
+        }
+        maven {
+          url "https://sdk.smartlook.com/android/release"
+        }
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:$agp_version"
+        classpath "io.realm:realm-gradle-plugin:10.15.1"
+        classpath 'com.google.gms:google-services:4.4.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'com.google.firebase:firebase-crashlytics-gradle:2.9.9'
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        //mavenCentral()
+        maven {
+            url "https://maven.google.com"
+        }
+        maven {
+            url "https://sdk.smartlook.com/android/release"
+        }
+    }
+}
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+dependencies {
+}

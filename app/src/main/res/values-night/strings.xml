@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home">Home</string>
+    <string name="results">Results</string>
+    <string name="profile">Profile</string>
+    <string name="default_notification_channel_id">1</string>
+    <string name="questionLimitDialogTitle">Choose the number of questions you want to practice for</string>
+    <string name="noti_permission_not_granted">You will not recieve push notifications for any new or exciting offers and updates.</string>
+</resources>

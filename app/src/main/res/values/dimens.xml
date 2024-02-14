@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Spacing-->
+    <dimen name="standard_space">16dp</dimen>
+    <dimen name="half_space">8dp</dimen>
+
+    <!--Text sizes-->
+    <dimen name="tab_text_size">20sp</dimen>
+    <dimen name="heading1">28sp</dimen>
+    <dimen name="heading2">24sp</dimen>
+
+</resources>
