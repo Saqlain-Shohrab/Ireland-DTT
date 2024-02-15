@@ -9,10 +9,10 @@
     <color name="text_color">#EAE2B7</color>
 
     <!-- Primary -->
-    <color name="primary">#003049</color>
-    <color name="primaryDark">#D62828</color>
+    <color name="primary">#009CED</color>
+    <color name="primaryDark">#031629</color>
     <color name="primaryLight">#F77F00</color>
-    <color name="secondary">#031629</color>
+    <color name="secondary">#D62828</color>
 
     <!-- Primary Dark -->
     <color name="dark_mode_navy_primary">#021424</color>
@@ -65,6 +65,9 @@
     <color name="button_red">#FF3267</color>
     <color name="button_red_delete">#FF3B30</color>
     <color name="button_blue_delete">#153755</color>
+
+    <!-- Transparent -->
+    <color name="transparent">#00000000</color>
 
     <!-- Black & White -->
     <color name="white">#ffffff</color>

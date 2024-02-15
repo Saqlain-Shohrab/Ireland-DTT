@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
             }
         });
         binding.navigation.setSelectedItemId(R.id.bottomNavBarHome);
-
+        //TODO: Remove before live
         FirebaseMessaging.getInstance().getToken().addOnSuccessListener(token -> {
             Log.e("newToken", token);
         });
@@ -65,9 +65,19 @@ public class MainActivity extends AppCompatActivity implements MainActivityInter
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        viewManager.maybeShowHome();
+    }
+
+    @Override
     public void onBackPressed() {
-        viewManager.onBackPressed();
-        super.onBackPressed();
+        if (viewManager.onBackPressed()  != null) {
+            if (Boolean.FALSE.equals(viewManager.onBackPressed())) {
+                super.onBackPressed();
+            }
+            super.onBackPressed();
+        }
     }
 
     @NonNull

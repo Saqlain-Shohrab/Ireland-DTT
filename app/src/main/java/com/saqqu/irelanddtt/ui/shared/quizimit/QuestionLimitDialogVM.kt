@@ -6,6 +6,6 @@ import com.saqqu.irelanddtt.ui._main.MainActivityInteractionListener
 class QuestionLimitDialogVM(private val listener: MainActivityInteractionListener) {
 
     fun saveQuestionLimit(limit: Int) {
-        listener.showToast("Limit set to ${limit}")
+        listener.showToast("Limit set to $limit")
     }
 }

@@ -8,9 +8,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.saqqu.irelanddtt.R
+import com.saqqu.irelanddtt.ui.dtt.DTTFragment
 import com.saqqu.irelanddtt.ui.home.HomeScreen
 import com.saqqu.irelanddtt.ui.profile.SettingsFragment
 import com.saqqu.irelanddtt.ui.results.ResultsFragment
+import com.saqqu.irelanddtt.ui.shared.alert.CustomAlertDialog
+import com.saqqu.irelanddtt.ui.shared.alert.CustomAlertDialogVM
 import com.saqqu.irelanddtt.ui.utils.ViewModelFactory
 import com.saqqu.irelanddtt.utils.Helper
 import kotlin.system.exitProcess
@@ -78,17 +81,51 @@ class ViewManager internal constructor(var context: Context) {
         return false
     }
 
-    fun onBackPressed() {
+    fun onBackPressed(): Boolean? {
 
-        if (isInHomeFragment()) {
-            exitProcess(0)
+        if (shouldHoldBack()) {
+            return null
         }
 
+        if (isInHomeFragment()) {
+            return false
+        }
+        return true
     }
 
     private fun isInHomeFragment(): Boolean {
         currentFragment?.let { return HomeScreen::class.java === it::class.java }
         return false
+    }
+
+    private fun shouldHoldBack(): Boolean {
+        if (isInDTTFragment()) {
+            showDTTExitDialog()
+            return true
+        }
+        return false
+    }
+    private fun isInDTTFragment(): Boolean {
+        currentFragment?.let { return DTTFragment::class.java === it::class.java }
+        return false
+    }
+
+    fun maybeShowHome() {
+        if (fragmentManager.backStackEntryCount == 0) {
+            val fragment = HomeScreen(ViewModelFactory().setupHomeScreenViewModel(listener))
+            navigateTo(fragment)
+        }
+    }
+
+    private fun showDTTExitDialog() {
+        val dialogVM = CustomAlertDialogVM(listener,"Are you sure to exit exam?","Yes","No")
+        val dialog = CustomAlertDialog(context, dialogVM, completionLeft = { dialog, _ ->
+            listener.activity().onBackPressed()
+            dialog.dismiss()
+        }, completionRight = { dialog, _ ->
+            dialog.dismiss()
+        })
+        dialog.show()
     }
 
 }

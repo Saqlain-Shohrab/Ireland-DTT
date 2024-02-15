@@ -37,7 +37,7 @@ class DTTViewModel(
 
     private fun startTimer() {
 
-        if (this::timer != null) return
+        if (timer != null) return
 
         val totalTime: Long = 1000L * 60 * quizCountLimit
         val interval: Long = 1000
@@ -54,6 +54,9 @@ class DTTViewModel(
         }.start()
     }
 
+    fun maybeStartTimer() {
+
+    }
     fun stopTimer() {
         timer?.cancel()
         timer = null
@@ -147,8 +150,7 @@ class DTTViewModel(
     }
 
     private fun maybeChangeCheckedOption(selectedOption: Int) {
-        val checkedId = getCheckButtonId(selectedOption)
-        onOptionsCheckedChanged.value = checkedId
+        onOptionsCheckedChanged.value = selectedOption
     }
 
     private fun submitForResult() {
@@ -183,6 +185,7 @@ class DTTViewModel(
                 // Post the updated list back to the LiveData
                 removeHomeDataSource()
                 onQuestionsRetrieved.value = updatedList
+                onOptionsCheckedChanged.value = i
 
             }
         }
@@ -208,16 +211,6 @@ class DTTViewModel(
 
     private fun getCurrentQuestion(): QuizDataModel? {
         return if (currentPosition in 0..<quizCountLimit) {onQuestionsRetrieved.value?.get(currentPosition)} else null
-    }
-
-    private fun getCheckButtonId(selectedOption: Int): Int {
-        return when(selectedOption) {
-            1 -> R.id.option1
-            2 -> R.id.option2
-            3 -> R.id.option3
-            4 -> R.id.option4
-            else -> 0
-        }
     }
 
     fun optionsIndexOutOfBound(position: Int) {

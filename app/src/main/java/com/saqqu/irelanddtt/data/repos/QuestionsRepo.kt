@@ -5,11 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.saqqu.irelanddtt.data.models.QuestionType
 import com.saqqu.irelanddtt.data.models.QuizDataModel
-import com.saqqu.irelanddtt.data.models.QuizModel
 import com.saqqu.irelanddtt.utils.Utility
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class QuestionsRepo(private val context: Context, private val quizCount: Int, private val type: QuestionType) {
 

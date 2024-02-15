@@ -18,7 +18,7 @@ data class QuizDataModel(
     @JvmField
     var type: String = "",
 
-    var tempSelectedOption: Int = 0,
+    var tempSelectedOption: Int = -1,
     var selectedOption: Int = 0,
     var image: String = "",
     var position: Int = 0,
@@ -50,8 +50,8 @@ data class QuizDataModel(
     )
 
     fun hasCorrectSelection(): Boolean {
-        val position = tempSelectedOption - 1
+        val position = tempSelectedOption
         if (position < 0) {return false}
-        return shuffledOptions[tempSelectedOption - 1] == quizAnswers[0]
+        return shuffledOptions[tempSelectedOption] == quizAnswers[0]
     }
 }
