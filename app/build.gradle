@@ -13,6 +13,7 @@ plugins {
     id 'com.google.gms.google-services'
     id 'realm-android'
     id 'com.google.firebase.crashlytics'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 repositories {
@@ -104,6 +105,7 @@ android {
 
 dependencies {
 
+    //support
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.11.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -128,6 +130,10 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1'
+    //Navigation
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.7.7'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.7.7'
+
 
     // Material Components
     implementation 'com.google.android.material:material:1.11.0'

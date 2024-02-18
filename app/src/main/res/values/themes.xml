@@ -14,7 +14,7 @@
         <item name="windowNoTitle">true</item>
         <!--<item name="android:background">@color/primaryDark</item>-->
         <item name="android:windowBackground">@color/primaryDark</item>
-        <!--<item name="android:colorBackground">@color/primaryDark</item>-->
+        <item name="android:colorBackground">@color/primaryDark</item>
 
         <item name="materialCalendarStyle">@style/ThemeOverlay.Material3.MaterialCalendar</item>
         <item name="materialCalendarFullscreenTheme">@style/MaterialFullscreenTheme</item>
@@ -102,9 +102,9 @@
 
     <!-- Bottom navbar theme -->
     <style name="BottomNavbar" parent="AppTheme">
-
         <!-- Color of text and icon when SELECTED -->
         <item name="colorPrimary">@color/primary</item>
+        <item name="background">@color/transparent</item>
     </style>
 
     <style name="cursorColor" parent="Widget.AppCompat.AutoCompleteTextView">

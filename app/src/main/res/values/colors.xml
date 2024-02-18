@@ -31,6 +31,7 @@
     <color name="dark_mode_black">#DE000000</color>
 
     <!-- Text -->
+    <color name="off_white">#DFFFFFFF</color>
     <color name="gray_medium_text">#636363</color>
     <color name="gray_slightly_darker_than_light">#8E8E93</color>
     <color name="gray_light_text">#878787</color>

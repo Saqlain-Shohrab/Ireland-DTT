@@ -8,10 +8,17 @@ import androidx.fragment.app.Fragment
 import com.saqqu.irelanddtt.data.models.QuestionType
 import com.saqqu.irelanddtt.databinding.FragmentHomeBinding
 import com.saqqu.irelanddtt.ui.dtt.DTTFragment
+import com.saqqu.irelanddtt.utils.Helper
 
-class HomeScreen(private var viewModel: HomeScreenVM) : Fragment() {
+class HomeScreen: Fragment {
 
     private lateinit var binding: FragmentHomeBinding
+    private lateinit var viewModel: HomeScreenVM
+
+    constructor()
+    private constructor(viewModel: HomeScreenVM) {
+        this.viewModel = viewModel
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +33,7 @@ class HomeScreen(private var viewModel: HomeScreenVM) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         operations()
+        Helper().getNavigator(context).showHideBottomNav(true)
     }
 
     private fun operations() {
@@ -54,6 +62,14 @@ class HomeScreen(private var viewModel: HomeScreenVM) : Fragment() {
             viewModel.showDialog(fragment)
         }
 
+    }
+
+    companion object {
+        fun  newInstance(viewModel: HomeScreenVM): HomeScreen {
+            return instance ?: HomeScreen(viewModel)
+        }
+
+        private var instance: HomeScreen? = null
     }
 
 }

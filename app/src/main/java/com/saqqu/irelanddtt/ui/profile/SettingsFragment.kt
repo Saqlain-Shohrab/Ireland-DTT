@@ -34,7 +34,7 @@ class SettingsFragment: Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         operations()
-
+        Helper().getNavigator(context).showHideBottomNav(true)
     }
 
     private fun operations() {

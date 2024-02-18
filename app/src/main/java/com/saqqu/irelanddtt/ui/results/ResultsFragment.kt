@@ -37,6 +37,12 @@ class ResultsFragment(private val offlineResults: OfflineResults): Fragment(),
         super.onViewCreated(view, savedInstanceState)
 
         setupRev()
+
+        Helper().getNavigator(context).showHideBottomNav(true)
+    }
+
+    override fun onResume() {
+        super.onResume()
     }
 
     private fun setupRev() {

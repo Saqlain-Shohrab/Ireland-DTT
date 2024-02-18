@@ -16,4 +16,5 @@ interface MainActivityInteractionListener {
     fun navigateTo(screen: Screens)
     fun submitResult(questions: MutableList<QuizDataModel>)
     fun getOfflineResult(): OfflineResults
+    fun showHideBottomNav(show: Boolean)
 }
