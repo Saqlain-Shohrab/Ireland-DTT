@@ -1,27 +1,37 @@
 package com.saqqu.irelanddtt.ui.dtt
 
+import android.os.Build
 import android.os.CountDownTimer
+import android.os.Handler
 import android.util.Log
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.saqqu.irelanddtt.R
 import com.saqqu.irelanddtt.data.models.QuizDataModel
-import com.saqqu.irelanddtt.data.repos.QuestionsRepo
+import com.saqqu.irelanddtt.data.repos.questions.QuestionsRepo
 import com.saqqu.irelanddtt.ui._main.MainActivityInteractionListener
 import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
+import java.util.Calendar
 import java.util.Date
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.minutes
 
 class DTTViewModel(
-    private val repo: QuestionsRepo,
+    private var repo: QuestionsRepo,
     val onQuestionsRetrieved: MediatorLiveData<MutableList<QuizDataModel>> = MediatorLiveData<MutableList<QuizDataModel>>(),
+    val gotError: MediatorLiveData<Boolean> = MediatorLiveData<Boolean>(),
     private var currentPosition: Int = -1,
     private val listener: MainActivityInteractionListener
 ) : ViewModel() {
 
     private val onQuestionsReceived = repo.notifyDataReceived()
     private var quizCountLimit: Int = 0
+    private lateinit var endTime:Date
+    private val perQuestionTimeLimitInSec = 60
 
     val onNextButtonTextChanged: MutableLiveData<String> = MutableLiveData()
     val onQuestionChanged: MutableLiveData<String> = MutableLiveData()
@@ -32,34 +42,48 @@ class DTTViewModel(
     val onImageVisibilityChanged: MutableLiveData<Int> = MutableLiveData()
     val onExplanationChanged: MutableLiveData<String> = MutableLiveData()
     val onTimeChanged: MutableLiveData<String> = MutableLiveData()
+    val onTimeFinished: MutableLiveData<Boolean> = MutableLiveData()
+    val onError: MutableLiveData<String> = MutableLiveData()
 
-    private var timer: CountDownTimer? = null
+    //Timer objects
+    private var handler = Handler()
+    private val timerRunnable = object : Runnable {
+        override fun run() {
+            val timeDifference = endTime.time - Date().time
+            if (timeDifference <= 0L) {
+                onTimeFinished.value = true
+                changeTime("Time Over")
+                stopTimeRunner()
+            } else {
+                val currentTimeRemaining = SimpleDateFormat("mm:ss").format(Date(timeDifference))
+                changeTime(currentTimeRemaining)
+                handler.postDelayed(this, 1000)
+            }
+        }
+    }
+
 
     private fun startTimer() {
+        handler = Handler()
+        handler.post(timerRunnable)
+    }
 
-        if (timer != null) return
-
-        val totalTime: Long = 1000L * 60 * quizCountLimit
-        val interval: Long = 1000
-        timer = object : CountDownTimer(totalTime, interval) {
-            override fun onTick(p0: Long) {
-                val currentTimeRemaining = SimpleDateFormat("mm:ss").format( Date(p0))
-                onTimeChanged.value = currentTimeRemaining
-            }
-
-            override fun onFinish() {
-
-            }
-
-        }.start()
+    private fun changeTime(remainingTime: String) {
+        onTimeChanged.value = remainingTime
     }
 
     fun maybeStartTimer() {
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if (!handler.hasCallbacks(timerRunnable)) {
+                startTimer()
+            }
+        } else {
+            stopTimeRunner()
+            startTimer()
+        }
     }
-    fun stopTimer() {
-        timer?.cancel()
-        timer = null
+    fun stopTimeRunner() {
+        handler.removeCallbacks(timerRunnable)
     }
 
     fun requestData() {
@@ -153,7 +177,7 @@ class DTTViewModel(
         onOptionsCheckedChanged.value = selectedOption
     }
 
-    private fun submitForResult() {
+    fun submitForResult() {
         onQuestionsRetrieved.value?.let { listener.submitResult(it) }
     }
 
@@ -163,7 +187,14 @@ class DTTViewModel(
             quizCountLimit = listQuiz.size
             onQuestionsRetrieved.value = listQuiz as MutableList<QuizDataModel>?
             goToNext()
+            setEndTime(quizCountLimit)
             startTimer()
+        }
+
+        gotError.addSource(repo.notifyErrorReceived()) { isError ->
+            if (isError) {
+                onError.value = "Error retrieving data"
+            }
         }
     }
 
@@ -171,18 +202,22 @@ class DTTViewModel(
         onQuestionsRetrieved.removeSource(onQuestionsReceived)
     }
 
+    private fun setEndTime(quizCount: Int) {
+        val currentTime = Calendar.getInstance().time
+        val calendar = Calendar.getInstance().apply {
+            time = currentTime
+            add(Calendar.SECOND, quizCount  * perQuestionTimeLimitInSec)
+        }
+        endTime = calendar.time
+    }
+
 
     fun updateSelection(i: Int) {
-        //onQuestionsRetrieved.value?.get(i)?.tempSelectedOption = i
         onQuestionsRetrieved.value?.let { currentList ->
             if (currentPosition in currentList.indices) {
-                // Create a deep copy of the list to ensure immutability
                 val updatedList = currentList.toMutableList()
-                // Create a copy of the item with the updated property
                 val updatedItem = currentList[currentPosition].copy(tempSelectedOption = i)
-                // Update the list with the modified item
                 updatedList[currentPosition] = updatedItem
-                // Post the updated list back to the LiveData
                 removeHomeDataSource()
                 onQuestionsRetrieved.value = updatedList
                 onOptionsCheckedChanged.value = i
@@ -192,17 +227,12 @@ class DTTViewModel(
     }
 
     private fun updateShuffled(shuffledList: MutableList<String>) {
-        //onQuestionsRetrieved.value?.get(i)?.tempSelectedOption = i
         onQuestionsRetrieved.value?.let { currentList ->
             if (currentPosition in currentList.indices) {
-                // Create a deep copy of the list to ensure immutability
                 val updatedList = currentList.toMutableList()
-                // Create a copy of the item with the updated property
                 val updatedItem = currentList[currentPosition].copy(shuffledOptions = shuffledList)
-                // Update the list with the modified item
                 updatedList[currentPosition] = updatedItem
                 removeHomeDataSource()
-                // Post the updated list back to the LiveData
                 onQuestionsRetrieved.value = updatedList
 
             }
@@ -211,9 +241,5 @@ class DTTViewModel(
 
     private fun getCurrentQuestion(): QuizDataModel? {
         return if (currentPosition in 0..<quizCountLimit) {onQuestionsRetrieved.value?.get(currentPosition)} else null
-    }
-
-    fun optionsIndexOutOfBound(position: Int) {
-        Log.e("{${this::class.java.name}}","Issue with current position {$currentPosition} with option {$position}")
     }
 }

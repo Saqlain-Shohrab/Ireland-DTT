@@ -3,6 +3,7 @@ package com.saqqu.irelanddtt.ui.utils
 import androidx.fragment.app.Fragment
 import com.saqqu.irelanddtt.data.models.QuestionType
 import com.saqqu.irelanddtt.data.results.OfflineResults
+import com.saqqu.irelanddtt.data.shared_prefs.Settings
 import com.saqqu.irelanddtt.ui.results.ResultsFragment
 import com.saqqu.irelanddtt.ui.dtt.DTTFragment
 import com.saqqu.irelanddtt.ui.home.HomeScreen
@@ -18,7 +19,7 @@ class FragmentFactory {
             }
 
             Screens.DTT -> {
-                DTTFragment(QuestionType.ALL)
+                null
             }
 
             Screens.RESULTS -> {

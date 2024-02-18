@@ -49,6 +49,18 @@ data class QuizDataModel(
         position = quizModel.id
     )
 
+    constructor(question: String) : this (
+        question = question,
+        quizAnswers = arrayListOf(),
+        explanation = "",
+        type = "",
+        selectedOption = -1,
+        correctOption = -1,
+        image = "",
+        position = -1
+
+    )
+
     fun hasCorrectSelection(): Boolean {
         val position = tempSelectedOption
         if (position < 0) {return false}

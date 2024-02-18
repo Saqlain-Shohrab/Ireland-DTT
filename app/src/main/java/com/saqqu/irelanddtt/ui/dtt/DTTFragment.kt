@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
@@ -21,14 +22,17 @@ import com.saqqu.irelanddtt.ui.utils.ViewModelFactory
 import com.saqqu.irelanddtt.utils.Helper
 
 
-class DTTFragment(private val type: QuestionType) : Fragment(), DTTRevListener {
+class DTTFragment() : Fragment(), DTTRevListener {
 
     //View Binding
     private lateinit var binding: FragmnetDttBinding
+
     //Data
     private lateinit var viewModel: DTTViewModel
+
     //Interactions
     private lateinit var listener: MainActivityInteractionListener
+
     //Sub view handlers
     private lateinit var adapter: DTTRevAdapter
 
@@ -44,7 +48,9 @@ class DTTFragment(private val type: QuestionType) : Fragment(), DTTRevListener {
         savedInstanceState: Bundle?
     ): View {
         listener = Helper().getNavigator(context)
-        viewModel = ViewModelFactory().setupDTTViewModel(listener, Settings.currentSettings(context).questionsLimit, type = type)
+        viewModel = ViewModelFactory().setupDTTViewModel(
+            listener
+        )
         binding = FragmnetDttBinding.inflate(inflater, container, false)
         return binding.root
 
@@ -60,18 +66,19 @@ class DTTFragment(private val type: QuestionType) : Fragment(), DTTRevListener {
         viewModel.maybeStartTimer()
     }
 
+    override fun onPause() {
+        super.onPause()
+        viewModel.stopTimeRunner()
+    }
+
     override fun onStop() {
         super.onStop()
     }
 
     override fun onDestroyView() {
-        viewModel.stopTimer()
         removeObservers()
         viewModel.reset()
         super.onDestroyView()
-    }
-    override fun onDestroy() {
-        super.onDestroy()
     }
 
     private fun initViews() {
@@ -84,7 +91,7 @@ class DTTFragment(private val type: QuestionType) : Fragment(), DTTRevListener {
     }
 
     private fun setupRev() {
-        context?.let { adapter = DTTRevAdapter(it, ArrayList(), this, -1)} ?: return
+        context?.let { adapter = DTTRevAdapter(it, ArrayList(), this, -1) } ?: return
         binding.optionRev.layoutManager = LinearLayoutManager(context)
         binding.optionRev.adapter = adapter
     }
@@ -95,6 +102,15 @@ class DTTFragment(private val type: QuestionType) : Fragment(), DTTRevListener {
     }
 
     private fun setupObservers() {
+
+        viewModel.onError.observe(viewLifecycleOwner) { errorMessage ->
+            for (i in 0..<binding.root.childCount) {
+                binding.root.getChildAt(i).visibility = View.GONE
+            }
+            val emptyView = TextView(context)
+            emptyView.text = errorMessage
+            binding.root.addView(emptyView)
+        }
 
         viewModel.onQuestionsRetrieved.observe(viewLifecycleOwner) {}
 
@@ -108,17 +124,17 @@ class DTTFragment(private val type: QuestionType) : Fragment(), DTTRevListener {
 
             addDataToAdapter(options)
         }
-        viewModel.onOptionsCheckedChanged.observe(viewLifecycleOwner) {checkedPosition ->
+        viewModel.onOptionsCheckedChanged.observe(viewLifecycleOwner) { checkedPosition ->
             adapter.setSelectedItem(checkedPosition)
         }
         viewModel.onClearChecked.observe(viewLifecycleOwner) {
             //Clearing selected position for next/previous question
             adapter.setSelectedItem(-1)
         }
-        viewModel.onImageChanged.observe(viewLifecycleOwner) {imageResID ->
+        viewModel.onImageChanged.observe(viewLifecycleOwner) { imageResID ->
             binding.qImg.setImageResource(imageResID)
         }
-        viewModel.onImageVisibilityChanged.observe(viewLifecycleOwner) {visibility ->
+        viewModel.onImageVisibilityChanged.observe(viewLifecycleOwner) { visibility ->
             binding.qImg.visibility = visibility
         }
         viewModel.onNextButtonTextChanged.observe(viewLifecycleOwner) { buttonName ->
@@ -129,7 +145,11 @@ class DTTFragment(private val type: QuestionType) : Fragment(), DTTRevListener {
         }
         viewModel.onTimeChanged.observe(viewLifecycleOwner) { timeRemaining ->
             binding.timerText.text = timeRemaining
-
+        }
+        viewModel.onTimeFinished.observe(viewLifecycleOwner) { timeFinished ->
+            if (timeFinished) {
+                viewModel.submitForResult()
+            }
         }
     }
 
@@ -169,7 +189,8 @@ class DTTFragment(private val type: QuestionType) : Fragment(), DTTRevListener {
             viewModel.goToPrevious()
         }
 
-        binding.explanationBtn.setOnClickListener {it
+        binding.explanationBtn.setOnClickListener {
+            it
 
             if (binding.explanation.visibility == View.VISIBLE) {
                 val anim: Animation = AlphaAnimation(0.0f, 1.0f)

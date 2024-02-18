@@ -1,15 +1,18 @@
-package com.saqqu.irelanddtt.data.repos
+package com.saqqu.irelanddtt.data.repos.questions
 
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
+import com.saqqu.irelanddtt.DTTApplication
 import com.saqqu.irelanddtt.data.models.QuestionType
 import com.saqqu.irelanddtt.data.models.QuizDataModel
+import com.saqqu.irelanddtt.data.shared_prefs.Settings
 import com.saqqu.irelanddtt.utils.Utility
 
-class QuestionsRepo(private val context: Context, private val quizCount: Int, private val type: QuestionType) {
+open class QuestionsRepo(private val context: Context? = DTTApplication.context) {
 
-    private val onQuestionsRetrieved = MutableLiveData<List<QuizDataModel>>()
+    protected val onQuestionsRetrieved = MutableLiveData<List<QuizDataModel>>()
+    protected val onError = MutableLiveData<Boolean>()
 
     private fun shouldGetFromServer(): Boolean {
         return false
@@ -21,16 +24,19 @@ class QuestionsRepo(private val context: Context, private val quizCount: Int, pr
 
     private fun requestAllQuestions() {
         val mainModel = Utility.getJson(context)
-        onQuestionsRetrieved.value = mainModel.questions
+        onQuestionsRetrieved.value = mainModel?.questions
     }
 
-    fun requestShuffledLimited() {
+    open fun requestShuffledLimited() {
         //GlobalScope.launch (Dispatchers.Main){
-            val mainModel = Utility.getJson(context)
+        val mainModelNullable = Utility.getJson(context)
+        val quizCount = Settings.currentSettings(context).questionsLimit
+        val type = Settings.currentSettings(context).questionsType
+        mainModelNullable?.let { mainModel ->
             val questionsByType: List<QuizDataModel> = mainModel.questions
                 .filter {
-                it.type.startsWith((this@QuestionsRepo).type.type)
-            }
+                    it.type.startsWith(type.type)
+                }
             val wrongAnswers = questionsByType.filter { it.quizAnswers.size > 4 }
             Log.e("Errors in Data", "*************************************")
             wrongAnswers.forEach {
@@ -43,8 +49,12 @@ class QuestionsRepo(private val context: Context, private val quizCount: Int, pr
 
             val shuffledList = questionsByType.shuffled().subList(0, limiter)
             onQuestionsRetrieved.value = shuffledList
+            return
+        }
+        onError.value = true
         //}
     }
 
     fun notifyDataReceived() = onQuestionsRetrieved
+    fun notifyErrorReceived() = onError
 }

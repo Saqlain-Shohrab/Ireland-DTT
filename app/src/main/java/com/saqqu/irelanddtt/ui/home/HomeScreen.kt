@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.saqqu.irelanddtt.data.models.QuestionType
+import com.saqqu.irelanddtt.data.shared_prefs.Settings
 import com.saqqu.irelanddtt.databinding.FragmentHomeBinding
 import com.saqqu.irelanddtt.ui.dtt.DTTFragment
 import com.saqqu.irelanddtt.utils.Helper
@@ -38,28 +39,22 @@ class HomeScreen: Fragment {
 
     private fun operations() {
         binding.quizStartBtn.setOnClickListener {
-            val fragment = DTTFragment(QuestionType.ALL)
-            viewModel.showDialog(fragment)
+            viewModel.showDialog(QuestionType.ALL)
         }
         binding.quizStartBtnCOV.setOnClickListener {
-            val fragment = DTTFragment(QuestionType.CONTROL_OF_VEHICLE)
-            viewModel.showDialog(fragment)
+            viewModel.showDialog(QuestionType.CONTROL_OF_VEHICLE)
         }
         binding.quizStartBtnLMROTR.setOnClickListener {
-            val fragment = DTTFragment(QuestionType.LEGAL_MATTER__RULES_OF_THE_ROAD)
-            viewModel.showDialog(fragment)
+            viewModel.showDialog(QuestionType.LEGAL_MATTER__RULES_OF_THE_ROAD)
         }
         binding.quizStartBtnMR.setOnClickListener {
-            val fragment = DTTFragment(QuestionType.MANAGING_RISK)
-            viewModel.showDialog(fragment)
+            viewModel.showDialog(QuestionType.MANAGING_RISK)
         }
         binding.quizStartBtnSARD.setOnClickListener {
-            val fragment = DTTFragment(QuestionType.SAFE_AND_RESPONSIBLE_DRIVING)
-            viewModel.showDialog(fragment)
+            viewModel.showDialog(QuestionType.SAFE_AND_RESPONSIBLE_DRIVING)
         }
         binding.quizStartBtnTM.setOnClickListener {
-            val fragment = DTTFragment(QuestionType.TECHNICAL_MATTERS)
-            viewModel.showDialog(fragment)
+            viewModel.showDialog(QuestionType.TECHNICAL_MATTERS)
         }
 
     }

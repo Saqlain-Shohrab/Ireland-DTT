@@ -13,5 +13,12 @@ enum class QuestionType(val type: String) {
     MANAGING_RISK("Managing Risk"),
     SAFE_AND_RESPONSIBLE_DRIVING("Safe and Responsible Driving"),
     TECHNICAL_MATTERS("Technical Matters"),
-    ALL("")
+    ALL("");
+
+
+    companion object {
+        fun construct(type: String): QuestionType {
+            return entries.find { it.type == type } ?: ALL
+        }
+    }
 }

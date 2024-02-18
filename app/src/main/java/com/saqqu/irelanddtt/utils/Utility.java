@@ -11,7 +11,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import javax.annotation.Nullable;
+
 public class Utility {
+    @Nullable
     public static QuizModel getJson(Context context) {
         //AssetManager assetManager = getAssets();
         InputStream is = context.getResources().openRawResource(R.raw.output_final_img_);

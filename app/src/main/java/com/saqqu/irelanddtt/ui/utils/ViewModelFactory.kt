@@ -2,9 +2,9 @@ package com.saqqu.irelanddtt.ui.utils
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
 import com.saqqu.irelanddtt.data.models.QuestionType
-import com.saqqu.irelanddtt.data.repos.QuestionsRepo
-import com.saqqu.irelanddtt.data.results.OfflineResults
+import com.saqqu.irelanddtt.data.repos.questions.QuestionsRepo
 import com.saqqu.irelanddtt.ui._main.MainActivity
 import com.saqqu.irelanddtt.ui._main.MainActivityInteractionListener
 import com.saqqu.irelanddtt.ui._main.MainViewModel
@@ -30,10 +30,9 @@ class ViewModelFactory {
         return ViewModelProvider(activity, ViewModelFactory().viewModelFactory { HomeScreenVM(listener) })[HomeScreenVM::class.java]
     }
 
-    fun setupDTTViewModel(listener: MainActivityInteractionListener, quizCount: Int, type: QuestionType): DTTViewModel {
-
+    fun setupDTTViewModel(listener: MainActivityInteractionListener): DTTViewModel {
         val activity = listener.activity()
-        val questionsRepo = QuestionsRepo(activity.baseContext, quizCount, type = type)
+        val questionsRepo = QuestionsRepo()
 
         return ViewModelProvider(activity, ViewModelFactory().viewModelFactory {
             DTTViewModel(questionsRepo,
