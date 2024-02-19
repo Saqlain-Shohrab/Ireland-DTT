@@ -18,19 +18,17 @@ class DTTViewModelTest {
 
     private lateinit var viewModel: DTTViewModel
     private lateinit var repo: QuestionsRepoMock
-    private lateinit var listener: MainActivityInteractionListener
     private lateinit var lifecycleOwner: LifecycleOwner
 
     @Before
     fun setup() {
         repo = QuestionsRepoMock()
-        listener = mock(MainActivityInteractionListener::class.java)
 
         lifecycleOwner = mock(LifecycleOwner::class.java)
         val lifecycle = LifecycleRegistry(lifecycleOwner)
         `when`(lifecycleOwner.lifecycle).thenReturn(lifecycle)
 
-        viewModel = DTTViewModel(repo, listener = listener)
+        viewModel = DTTViewModel(repo)
     }
 
     @Test
