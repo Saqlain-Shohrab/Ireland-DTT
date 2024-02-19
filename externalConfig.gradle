@@ -1,0 +1,16 @@
+ext {
+    debugSigningConfig = [
+            keyAlias: 'key',
+            keyPassword: '123456',
+            storeFile: file('DebugKey'),
+            storePassword: '123456'
+    ]
+}
+ext {
+    releaseSigningConfig = [
+            keyAlias: 'key',
+            keyPassword: '123456',
+            storeFile: file('releaseKey'),
+            storePassword: '123456'
+    ]
+}
