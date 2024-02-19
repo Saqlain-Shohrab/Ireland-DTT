@@ -51,6 +51,7 @@ class DTTFragment() : Fragment(), DTTRevListener {
         viewModel = ViewModelFactory().setupDTTViewModel(
             listener
         )
+        viewModel.addListener(listener)
         binding = FragmnetDttBinding.inflate(inflater, container, false)
         return binding.root
 

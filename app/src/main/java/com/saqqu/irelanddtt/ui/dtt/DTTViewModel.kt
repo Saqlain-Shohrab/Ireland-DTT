@@ -24,11 +24,11 @@ class DTTViewModel(
     private var repo: QuestionsRepo,
     val onQuestionsRetrieved: MediatorLiveData<MutableList<QuizDataModel>> = MediatorLiveData<MutableList<QuizDataModel>>(),
     val gotError: MediatorLiveData<Boolean> = MediatorLiveData<Boolean>(),
-    private var currentPosition: Int = -1,
-    private val listener: MainActivityInteractionListener
+    private var currentPosition: Int = -1
 ) : ViewModel() {
 
     private val onQuestionsReceived = repo.notifyDataReceived()
+    private lateinit var listener: MainActivityInteractionListener
     private var quizCountLimit: Int = 0
     private lateinit var endTime:Date
     private val perQuestionTimeLimitInSec = 60
@@ -62,7 +62,6 @@ class DTTViewModel(
         }
     }
 
-
     private fun startTimer() {
         handler = Handler()
         handler.post(timerRunnable)
@@ -86,6 +85,9 @@ class DTTViewModel(
         handler.removeCallbacks(timerRunnable)
     }
 
+    fun addListener(listener: MainActivityInteractionListener) {
+        this.listener = listener
+    }
     fun requestData() {
         removeHomeDataSource()
         addHomeDataSource()

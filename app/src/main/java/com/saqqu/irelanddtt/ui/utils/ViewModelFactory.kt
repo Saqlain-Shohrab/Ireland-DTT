@@ -35,8 +35,7 @@ class ViewModelFactory {
         val questionsRepo = QuestionsRepo()
 
         return ViewModelProvider(activity, ViewModelFactory().viewModelFactory {
-            DTTViewModel(questionsRepo,
-                listener = listener)
+            DTTViewModel(questionsRepo)
         })[DTTViewModel::class.java]
     }
 
