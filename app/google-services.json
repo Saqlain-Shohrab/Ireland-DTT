@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "",
-    "project_id": "",
-    "storage_bucket": ""
+    "project_number": "8504",
+    "project_id": "irelanddtt-sdfds",
+    "storage_bucket": "sdfd-sdfsd.sdfad.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "",
+        "mobilesdk_app_id": "1:8504:android:57ae9a8699ada348776787",
         "android_client_info": {
           "package_name": "com.saqqu.irelanddtt"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": ""
+          "current_key": "hkdfhAJHSjfh_jhfdghls-3R7kvRYVqsRT4"
         }
       ],
       "services": {
