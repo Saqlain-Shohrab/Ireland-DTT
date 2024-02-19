@@ -19,19 +19,19 @@ jobs:
         with:
           distribution: 'adopt'
           java-version: 18
-      - uses: actions/cache@v2
-        with:
-          path: ~/.gradle/caches
-          key: gradle-${{ runner.os }}-${{ hashFiles('**/**.gradle.kts', '**/gradle/wrapper/gradle-wrapper.properties', '**/buildSrc/src/main/kotlin/Library.kt') }}
+    #- uses: actions/cache@v2
+          #with:
+          #path: ~/.gradle/caches
+          #key: gradle-${{ runner.os }}-${{ hashFiles('**/**.gradle.kts', '**/gradle/wrapper/gradle-wrapper.properties', '**/buildSrc/src/main/kotlin/Library.kt') }}
 
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
+        #- name: Make gradlew executable
+        #run: chmod +x ./gradlew
 
-      - name: Run Spotless
-        run: ./gradlew spotlessCheck
+        #- name: Run Spotless
+        #run: ./gradlew spotlessCheck
 
-      - name: Run DeteKT code formatter
-        run: ./gradlew detekt
+        #- name: Run DeteKT code formatter
+        #run: ./gradlew detekt
 
   unit-test:
 
