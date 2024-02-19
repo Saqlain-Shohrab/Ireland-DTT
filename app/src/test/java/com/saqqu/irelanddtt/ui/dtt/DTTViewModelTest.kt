@@ -5,7 +5,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LifecycleRegistry
 import com.saqqu.irelanddtt.data.models.QuizDataModel
 import com.saqqu.irelanddtt.data.repos.questions.QuestionsRepo
-import com.saqqu.irelanddtt.ui._main.MainActivityInteractionListener
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -23,7 +22,6 @@ class DTTViewModelTest {
     @Before
     fun setup() {
         repo = QuestionsRepoMock()
-
         lifecycleOwner = mock(LifecycleOwner::class.java)
         val lifecycle = LifecycleRegistry(lifecycleOwner)
         `when`(lifecycleOwner.lifecycle).thenReturn(lifecycle)
@@ -39,8 +37,6 @@ class DTTViewModelTest {
         val quizDataModel = QuizDataModel(
             question = question
         )
-
-        // Mock repo data emission
         val data = mutableListOf<QuizDataModel>()
         data.add(quizDataModel)
         repo.questions = ArrayList()
