@@ -96,4 +96,9 @@
 
     <!-- Badge -->
     <color name="badge_red">#FF0000</color>
+
+    <!-- Correct/Wrong -->
+    <color name="wrong_selection">#45FF0000</color>
+    <color name="correct_selection">#4500FF2A</color>
+
 </resources>

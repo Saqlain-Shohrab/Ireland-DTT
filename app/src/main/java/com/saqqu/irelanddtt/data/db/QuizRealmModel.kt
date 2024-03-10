@@ -30,7 +30,7 @@ open class QuizRealmModel: RealmObject {
         }
         this.explanation = quizModel.explanation
         this.type = quizModel.type
-        this.selectedOption = quizModel.selectedOption
+        this.selectedOption = quizModel.getSelectedOptionActualPosition()
         this.correctOption = quizModel.correctOption
         this.image = quizModel.image
     }

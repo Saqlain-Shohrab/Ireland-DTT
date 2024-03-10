@@ -4,6 +4,7 @@
     <!--Spacing-->
     <dimen name="standard_space">16dp</dimen>
     <dimen name="half_space">8dp</dimen>
+    <dimen name="quarter_space">4dp</dimen>
 
     <!--Text sizes-->
     <dimen name="tab_text_size">20sp</dimen>

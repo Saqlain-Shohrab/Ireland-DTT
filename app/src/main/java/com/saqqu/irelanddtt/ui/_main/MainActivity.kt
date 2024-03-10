@@ -88,7 +88,7 @@ class MainActivity : AppCompatActivity(), MainActivityInteractionListener {
     }
 
     override fun submitResult(questions: MutableList<QuizDataModel>) {
-        viewModel.addResult(questions)?.observe(this) { results ->
+        viewModel.addResult(questions).observe(this) {
 
             val fragment = ResultsFragment(viewModel.getResultsDB())
             supportFragmentManager.popBackStack()

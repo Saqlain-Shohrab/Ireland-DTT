@@ -7,4 +7,5 @@
     <string name="default_notification_channel_id">1</string>
     <string name="questionLimitDialogTitle">Choose the number of questions you want to practice for</string>
     <string name="noti_permission_not_granted">You will not recieve push notifications for any new or exciting offers and updates.</string>
+    <string name="result_title">This is how you performed for the test.</string>
 </resources>

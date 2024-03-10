@@ -28,6 +28,7 @@ class DTTViewModel(
 ) : ViewModel() {
 
     private val onQuestionsReceived = repo.notifyDataReceived()
+    private val onErrorReceived = repo.notifyErrorReceived()
     private lateinit var listener: MainActivityInteractionListener
     private var quizCountLimit: Int = 0
     private lateinit var endTime:Date
@@ -193,7 +194,7 @@ class DTTViewModel(
             startTimer()
         }
 
-        gotError.addSource(repo.notifyErrorReceived()) { isError ->
+        gotError.addSource(onErrorReceived) { isError ->
             if (isError) {
                 onError.value = "Error retrieving data"
             }
@@ -202,6 +203,7 @@ class DTTViewModel(
 
     private fun removeHomeDataSource() {
         onQuestionsRetrieved.removeSource(onQuestionsReceived)
+        gotError.removeSource(onErrorReceived)
     }
 
     private fun setEndTime(quizCount: Int) {
