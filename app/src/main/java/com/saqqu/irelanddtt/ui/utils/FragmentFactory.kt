@@ -27,7 +27,7 @@ class FragmentFactory {
             }
 
             Screens.RESULT -> {
-                ResultFragment(null)
+                null
             }
 
             else -> {

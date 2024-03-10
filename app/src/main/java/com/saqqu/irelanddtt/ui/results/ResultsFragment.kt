@@ -12,6 +12,7 @@ import com.saqqu.irelanddtt.databinding.FragmentResultsBinding
 import com.saqqu.irelanddtt.ui._main.MainActivityInteractionListener
 import com.saqqu.irelanddtt.ui.results.rev.ResultsRevAdapter
 import com.saqqu.irelanddtt.ui.results.rev.ResultsToResultListener
+import com.saqqu.irelanddtt.ui.utils.ViewModelFactory
 import com.saqqu.irelanddtt.utils.Helper
 
 class ResultsFragment(private val offlineResults: OfflineResults): Fragment(),
@@ -61,7 +62,7 @@ class ResultsFragment(private val offlineResults: OfflineResults): Fragment(),
     }
 
     override fun onResultClicked(result: ResultModel) {
-        val resultFragment = ResultFragment(result)
+        val resultFragment = ResultFragment(result = result)
         listener.navigateToFragment(resultFragment)
     }
 }

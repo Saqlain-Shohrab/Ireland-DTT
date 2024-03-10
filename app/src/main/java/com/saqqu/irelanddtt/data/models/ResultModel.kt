@@ -45,4 +45,14 @@ class ResultModel {
             scoreDivision.first { it.divisionName == divisionName }.total += withCorrect
         }
     }
+
+    fun getScoreDivision(): String {
+        var resultDivision = ""
+
+        for (item in scoreDivision) {
+            resultDivision += "${item.divisionName}: ${item.correct}/${item.total} \n"
+        }
+
+        return resultDivision
+    }
 }

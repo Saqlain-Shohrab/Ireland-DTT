@@ -30,7 +30,7 @@ class ResultsRevAdapter(
 
     override fun onBindViewHolder(holder: ResultsRevVH, position: Int) {
         holder.titleTextView.text = list[position].date.toString()
-        val scoreDivision = ResultsRevAdapterVM().getScoreDivision(list[position])
+        val scoreDivision = list[position].getScoreDivision()
         holder.scoreTextView.text = "${scoreDivision}Total: ${list[position].scored}/${list[position].outOf}"
         holder.qualifyStatusTextView.text = if(list[position].scored >= 0.875 * list[position].outOf)  "Pass" else "Fail"
         //if(list[position].scored >= 0.875 * list[position].outOf)  holder.cardLay.setBackgroundColor(Color.GREEN) else holder.cardLay.setBackgroundColor(Color.RED)
@@ -45,7 +45,7 @@ class ResultsRevAdapter(
 
 
     class ResultsRevVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        //val cardLay: LinearLayout = itemView.findViewById(R.id.resultMetaData)
+
         val titleTextView: TextView = itemView.findViewById(R.id.resultTitleMetaData)
         val scoreTextView: TextView = itemView.findViewById(R.id.resultScoreMetaData)
         val qualifyStatusTextView: TextView = itemView.findViewById(R.id.resultQualifyMetaData)

@@ -19,7 +19,7 @@ data class QuizDataModel(
     var type: String = "",
 
     var tempSelectedOption: Int = -1,
-    var selectedOption: Int = 0,
+    var selectedOption: Int = -1,
     var image: String = "",
     var position: Int = 0,
     var correctOption: Int = 0,
@@ -65,5 +65,29 @@ data class QuizDataModel(
         val position = tempSelectedOption
         if (position < 0) {return false}
         return shuffledOptions[tempSelectedOption] == quizAnswers[0]
+    }
+
+    fun isSelectedCorrectly(): Boolean {
+        return selectedOption == 0
+    }
+    fun getSelectedOptionActualPosition(): Int {
+        try {
+            return quizAnswers.indexOf(shuffledOptions[tempSelectedOption])
+        } catch (_: Exception){}
+        return -1
+    }
+
+    fun getSelectedOption(): String {
+        try {
+            return quizAnswers[selectedOption]
+        } catch (_: Exception){}
+        return "Not Answered"
+    }
+
+    fun getCorrectOption(): String {
+        try {
+            return "Correct answer: " + quizAnswers[0] + "\n\n${explanation}"
+        } catch (_: Exception){}
+        return ""
     }
 }

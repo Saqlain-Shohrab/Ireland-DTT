@@ -156,32 +156,10 @@ class DTTFragment() : Fragment(), DTTRevListener {
 
     private fun removeObservers() {
         viewModel.onQuestionsRetrieved.removeObservers(viewLifecycleOwner)
+        viewModel.gotError.removeObservers(viewLifecycleOwner)
     }
 
     private fun operations() {
-
-        /*binding.options.setOnCheckedChangeListener { _, checkedId ->
-            when (checkedId) {
-
-                R.id.option1 -> {
-                    viewModel.updateSelection(1)
-                }
-
-                R.id.option2 -> {
-                    viewModel.updateSelection(2)
-                }
-
-                R.id.option3 -> {
-                    viewModel.updateSelection(3)
-                }
-
-                R.id.option4 -> {
-                    viewModel.updateSelection(4)
-                }
-
-            }
-            activateNextButton()
-        }*/
 
         binding.nextBtn.setOnClickListener {
             viewModel.goToNext()
@@ -191,8 +169,6 @@ class DTTFragment() : Fragment(), DTTRevListener {
         }
 
         binding.explanationBtn.setOnClickListener {
-            it
-
             if (binding.explanation.visibility == View.VISIBLE) {
                 val anim: Animation = AlphaAnimation(0.0f, 1.0f)
                 anim.duration = 50 //You can manage the blinking time with this parameter
